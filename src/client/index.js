@@ -1,22 +1,44 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const globals_1 = require("./globals");
+const msgpack = __importStar(require("msgpack-lite"));
 const currentUrl = new URL(window.location.href);
 var HOST = "ws://" + currentUrl.hostname + ":3000";
 const ws = new WebSocket(HOST);
 ws.binaryType = "arraybuffer";
-let closed = false;
-const players = {};
+let isSocketClosed = false;
 const petalContainers = {};
-window.enemies = {};
 let wave = 1;
-window.lastUpdateTime = 0;
-window.delta = 0;
 ws.addEventListener("message", (datas) => {
     const msg = msgpack.decode(new Uint8Array(datas.data));
     if (msg.delta) {
-        window.delta = msg.delta;
+        globals_1.globals.delta = msg.delta;
     }
     if (msg.newplayer) {
-        players[msg.id] = new Flower(msg.data);
+        globals_1.globals.players[msg.id] = new Flower(msg.data);
     }
     if (msg.serverid) {
         selfId = msg.serverid;
@@ -129,7 +151,7 @@ ws.addEventListener("message", (datas) => {
 });
 ws.addEventListener('close', (event) => {
     console.error('socket closed!');
-    closed = true;
+    isSocketClosed = true;
 });
 function send(msg) {
     try {
