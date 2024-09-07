@@ -1,0 +1,5 @@
+export {
+  globals,
+};
+var globals = {
+};
