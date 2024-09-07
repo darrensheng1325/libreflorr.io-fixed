@@ -5,10 +5,10 @@
 //         .replace(/</g, '&lt;')
 //         .replace(/>/g, '&gt;');
 // };
-function linearLerp(start, end, time) {
+function linearLerp(start: number, end: number, time: number) {
     return start * (1 - time) + end * time;
 }
-function interpolateDirection(start, end, time) {
+function interpolateDirection(start: number, end: number, time: number) {
     const absD = Math.abs((end - start));
     if (absD >= Math.PI) {
         // The angle between the directions is large - we should rotate the other way
@@ -27,7 +27,7 @@ function interpolateDirection(start, end, time) {
 // window.me = () => {
 //     return players[selfId];
 // };
-CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r: number) {
     if (w < 2 * r)
         r = w / 2;
     if (h < 2 * r)
