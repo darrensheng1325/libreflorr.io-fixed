@@ -4,7 +4,7 @@ const ws = new WebSocket(HOST);
 ws.binaryType = "arraybuffer";
 let closed = false;
 
-const players = {};
+players = globals.players;
 
 const petalContainers = {};
 
@@ -148,3 +148,7 @@ function send(msg) {
     location.reload()
   }
 }
+
+window.me = () => {
+  return players[selfId];
+};
