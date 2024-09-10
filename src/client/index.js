@@ -162,3 +162,7 @@ function send(msg) {
         location.reload();
     }
 }
+
+window.me = () => {
+  return players[selfId];
+};

@@ -24,9 +24,6 @@ function interpolateDirection(start: number, end: number, time: number) {
         return start + (end - start) * time;
     }
 }
-// window.me = () => {
-//     return players[selfId];
-// };
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r: number) {
     if (w < 2 * r)
         r = w / 2;
