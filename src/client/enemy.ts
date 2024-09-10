@@ -1,3 +1,6 @@
+
+declare let ctx: CanvasRenderingContext2D;
+
 class RootEnemy {
   constructor(init: any) {
     switch (init.type) {
